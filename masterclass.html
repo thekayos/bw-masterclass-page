@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breathwork Masterclass — Daniel Alan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            /* Brand palette from DA Branding Bible */
+            --bone:        #E8E2D2;   /* background base */
+            --bone-2:      #F2EDE4;   /* lighter off-white surface */
+            --earth:       #C6B398;   /* primary accent / sand */
+            --fog:         #BCB4A4;   /* muted mid-tone */
+            --smoke:       #877F6D;   /* body text secondary */
+            --dust:        #B9B2A9;   /* subtle borders */
+            --moss:        #A8A178;   /* soft green-earth */
+            --ochre:       #C2923F;   /* warm gold accent */
+            --ember:       #B45C43;   /* passion accent */
+            --wood:        #684735;   /* dark warm brown */
+            --charcoal:    #3A302E;   /* near-black for text & dark bg */
+
+            /* Semantic aliases */
+            --bg:          var(--bone);
+            --bg-2:        var(--bone-2);
+            --accent:      var(--earth);
+            --accent-2:    var(--ochre);
+            --text-dark:   var(--charcoal);
+            --text-body:   #4A3C35;
+            --text-muted:  var(--smoke);
+            --text-light:  var(--bone);
+            --text-dim:    rgba(232, 226, 210, 0.55);
+            --text-dimmer: rgba(232, 226, 210, 0.32);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text-dark);
+            font-family: 'Raleway', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Grain overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9000;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 180px 180px;
+        }
+
+        /* ─── SITE HEADER / NAV ─── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--earth);
+            border-bottom: 1px solid rgba(58, 48, 46, 0.1);
+            transition: box-shadow 0.35s ease;
+            opacity: 0;
+            animation: fadeSlideDown 0.8s ease 0.1s forwards;
+        }
+
+        .site-header.scrolled {
+            box-shadow: 0 2px 28px rgba(23, 16, 10, 0.07);
+        }
+
+        .nav-inner {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 12px 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            height: 38px;
+            display: block;
+            filter: brightness(0) opacity(0.72);
+        }
+
+        .nav-cta {
+            font-family: 'Raleway', sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--charcoal);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(58, 48, 46, 0.35);
+            padding-bottom: 2px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .nav-cta:hover {
+            color: var(--wood);
+            border-color: var(--wood);
+        }
+
+        /* ─── VIDEO BAND ─── */
+        .video-band {
+            background: var(--bg-2);
+        }
+
+        /* ─── MAIN CONTENT ─── */
+        .main {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 68px 28px 120px;
+        }
+
+        /* ─── EPISODE INTRO ─── */
+        .episode-label {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+            opacity: 0;
+            animation: fadeSlideUp 0.9s ease 0.45s forwards;
+        }
+
+        .episode-label span {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--fog);
+        }
+
+        .ep-line {
+            width: 48px;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.5;
+        }
+
+        .episode-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(34px, 5vw, 60px);
+            font-weight: 300;
+            line-height: 1.1;
+            color: var(--text-dark);
+            margin-bottom: 18px;
+            opacity: 0;
+            animation: fadeSlideUp 0.9s ease 0.6s forwards;
+        }
+
+        .episode-title em {
+            font-style: italic;
+            color: var(--smoke);
+        }
+
+        .episode-desc {
+            font-size: 14.5px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: var(--text-muted);
+            max-width: 560px;
+            margin-bottom: 48px;
+            letter-spacing: 0.025em;
+            opacity: 0;
+            animation: fadeSlideUp 0.9s ease 0.75s forwards;
+        }
+
+        /* ─── VIDEO PLACEHOLDER ─── */
+        .video-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: radial-gradient(ellipse 70% 70% at 50% 46%, #3D2110 0%, #1E120A 45%, #0E0906 100%);
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            animation: videoReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
+            /* Subtle lift on light page */
+            box-shadow: 0 24px 80px rgba(23,16,10,0.18), 0 4px 16px rgba(23,16,10,0.12);
+        }
+
+        /* Warm rays */
+        .video-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                transparent 0deg,   rgba(198,179,152,0.025) 3deg,   transparent 6deg,
+                transparent 30deg,  rgba(198,179,152,0.018) 33deg,  transparent 36deg,
+                transparent 60deg,  rgba(198,179,152,0.022) 63deg,  transparent 66deg,
+                transparent 90deg,  rgba(198,179,152,0.015) 93deg,  transparent 96deg,
+                transparent 120deg, rgba(198,179,152,0.028) 123deg, transparent 126deg,
+                transparent 150deg, rgba(198,179,152,0.018) 153deg, transparent 156deg,
+                transparent 180deg, rgba(198,179,152,0.025) 183deg, transparent 186deg,
+                transparent 210deg, rgba(198,179,152,0.02)  213deg, transparent 216deg,
+                transparent 240deg, rgba(198,179,152,0.022) 243deg, transparent 246deg,
+                transparent 270deg, rgba(198,179,152,0.015) 273deg, transparent 276deg,
+                transparent 300deg, rgba(198,179,152,0.025) 303deg, transparent 306deg,
+                transparent 330deg, rgba(198,179,152,0.018) 333deg, transparent 336deg
+            );
+            animation: rayRotate 60s linear infinite;
+        }
+
+        @keyframes rayRotate {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        /* Bottom vignette */
+        .video-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 58%, rgba(10,6,4,0.65) 100%);
+            pointer-events: none;
+        }
+
+        /* Breathing rings in video */
+        .vid-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -52%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .vid-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(198,179,152,0.22);
+            animation: vBreathe 7s ease-in-out infinite;
+        }
+
+        .vid-ring-1 { width: 90px;  height: 90px;  animation-delay: 0s;   }
+        .vid-ring-2 { width: 160px; height: 160px; animation-delay: 0.4s; opacity: 0.65; }
+        .vid-ring-3 { width: 240px; height: 240px; animation-delay: 0.8s; opacity: 0.35; }
+        .vid-ring-4 { width: 336px; height: 336px; animation-delay: 1.2s; opacity: 0.15; }
+
+        @keyframes vBreathe {
+            0%, 100% { transform: scale(1);    }
+            45%       { transform: scale(1.18); }
+            55%       { transform: scale(1.18); }
+        }
+
+        /* Play button */
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -52%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.4s ease;
+        }
+
+        .video-wrap:hover .play-btn {
+            transform: translate(-50%, -52%) scale(1.05);
+        }
+
+        .play-circle {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(198,179,152,0.65);
+            background: rgba(198,179,152,0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            margin-bottom: 20px;
+        }
+
+        .video-wrap:hover .play-circle {
+            background: rgba(198,179,152,0.22);
+            border-color: var(--earth);
+            box-shadow: 0 0 40px rgba(198,179,152,0.15);
+        }
+
+        .play-triangle {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 11px 0 11px 18px;
+            border-color: transparent transparent transparent var(--earth);
+            margin-left: 4px;
+        }
+
+        .play-label {
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: rgba(198,179,152,0.55);
+        }
+
+        /* Bottom video meta bar */
+        .video-meta {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 28px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .vid-title-block .vid-eyebrow {
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(198,179,152,0.45);
+            margin-bottom: 4px;
+        }
+
+        .vid-title-block .vid-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--fog);
+        }
+
+        .vid-details {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .vid-detail-item {
+            font-size: 9px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(198,179,152,0.38);
+        }
+
+        .vid-sep {
+            width: 1px;
+            height: 12px;
+            background: rgba(198,179,152,0.18);
+        }
+
+
+        /* ─── FORM SECTION ─── */
+        .form-band {
+            background: var(--bg);
+            padding: 43px 28px 60px;
+        }
+
+        .form-inner {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .form-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            margin-bottom: 32px;
+            align-items: start;
+        }
+
+        .form-tag {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--earth);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .form-tag::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.35;
+        }
+
+        .form-intro-left h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 50px);
+            font-weight: 300;
+            line-height: 1.15;
+            color: var(--text-dark);
+        }
+
+        .form-intro-left h2 em {
+            font-style: italic;
+            color: var(--smoke);
+        }
+
+        .form-intro-right p {
+            font-size: 14.5px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: var(--text-body);
+            margin-bottom: 32px;
+            padding-top: 15px;
+        }
+
+        .call-points {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .call-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: 13.5px;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .call-points li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 20px;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.5;
+            margin-top: 11px;
+        }
+
+        /* ─── FORM ─── */
+        .call-form {
+            background: var(--bg-2);
+            border: 1px solid rgba(58, 48, 46, 0.1);
+            padding: 56px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 40px;
+        }
+
+        .form-field {
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .form-field.full { grid-column: 1 / -1; }
+
+        .form-field label {
+            display: block;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--smoke);
+            margin-bottom: 14px;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(58, 48, 46, 0.18);
+            color: var(--text-dark);
+            font-family: 'Raleway', sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            padding: 0 0 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .form-field textarea {
+            resize: none;
+            min-height: 80px;
+            line-height: 1.7;
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: rgba(58, 48, 46, 0.28);
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            border-bottom-color: var(--earth);
+        }
+
+        /* Animated focus underline */
+        .form-field::after {
+            content: '';
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--earth);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-field:focus-within::after { width: 100%; }
+
+        .form-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-note {
+            font-size: 11.5px;
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            line-height: 1.6;
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--charcoal);
+            color: var(--bone);
+            border: none;
+            padding: 16px 44px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            white-space: nowrap;
+        }
+
+        .btn-submit:hover {
+            background: var(--wood);
+            color: var(--bone);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit svg { transition: transform 0.3s ease; }
+        .btn-submit:hover svg { transform: translateX(4px); }
+
+        /* Success state */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .success-ring {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(198,179,152,0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+        }
+
+        .success-check { font-size: 22px; color: var(--earth); }
+
+        .form-success h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+        }
+
+        .form-success p {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--charcoal);
+            padding: 40px 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(198,179,152,0.06);
+        }
+
+        footer img {
+            height: 36px;
+            opacity: 0.5;
+            /* white logo stays white on dark footer */
+        }
+
+        footer p {
+            font-size: 11px;
+            font-weight: 300;
+            color: rgba(242,237,228,0.2);
+            letter-spacing: 0.08em;
+        }
+
+        /* ─── KEYFRAMES ─── */
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes videoReveal {
+            from { opacity: 0; transform: scale(0.99); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 760px) {
+            .nav-inner { padding: 16px 20px; }
+            .nav-logo { height: 32px; }
+            .main { padding: 44px 20px 0; }
+            .form-band { padding: 60px 20px 72px; }
+            .form-intro { grid-template-columns: 1fr; gap: 36px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-field.full { grid-column: 1; }
+            .call-form { padding: 36px 24px; }
+            .form-footer { flex-direction: column; align-items: flex-start; }
+            footer { flex-direction: column; gap: 18px; text-align: center; }
+        }
+
+        @media (max-width: 500px) {
+            .nav-logo { height: 26px; }
+            .vid-details { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── SITE HEADER ─── -->
+    <header class="site-header" id="siteHeader">
+        <nav class="nav-inner">
+            <img src="brand_assets/DA Solo Logo-08 edit.png" alt="Daniel Alan" class="nav-logo">
+            <a href="#form" class="nav-cta">Book a Call</a>
+        </nav>
+    </header>
+
+    <!-- ─── VIDEO BAND ─── -->
+    <div class="video-band">
+    <main class="main">
+
+        <div class="episode-label">
+            <span>Breathwork Masterclass</span>
+            <span class="ep-line"></span>
+        </div>
+
+        <h1 class="episode-title">
+            Was dein Atem<br><em>wirklich kann.</em>
+        </h1>
+
+        <p class="episode-desc">
+            Lerne von Daniel Alan was Breathwork ist und wie es dein Leben und das deiner Klienten verändern kann.
+        </p>
+
+        <!-- ─── VIDEO PLACEHOLDER ─── -->
+        <div class="video-wrap" id="videoWrap" role="button" aria-label="Play masterclass video" tabindex="0">
+
+            <div class="vid-rings">
+                <div class="vid-ring vid-ring-1"></div>
+                <div class="vid-ring vid-ring-2"></div>
+                <div class="vid-ring vid-ring-3"></div>
+                <div class="vid-ring vid-ring-4"></div>
+            </div>
+
+            <div class="play-btn">
+                <div class="play-circle">
+                    <div class="play-triangle"></div>
+                </div>
+                <span class="play-label">Watch Masterclass</span>
+            </div>
+
+            <div class="video-meta">
+                <div class="vid-title-block">
+                    <div class="vid-eyebrow">Daniel Alan</div>
+                    <div class="vid-name">Breathwork Masterclass — Full Session</div>
+                </div>
+                <div class="vid-details">
+                    <span class="vid-detail-item">47 min</span>
+                    <span class="vid-sep"></span>
+                    <span class="vid-detail-item">HD</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    </div><!-- end .video-band -->
+
+    <!-- ─── FORM SECTION ─── -->
+    <div class="form-band" id="form">
+        <div class="form-inner">
+
+            <div class="form-intro">
+                <div class="form-intro-left">
+                    <h2>Bereit für<br><em>mehr?</em></h2>
+                </div>
+                <div class="form-intro-right">
+                    <p>In einem kostenlosen 1:1-Gespräch schauen wir uns gemeinsam an, wo du gerade stehst, was dir noch fehlt und ob die Breathwork Ausbildung der richtige nächste Schritt für dich ist.</p>
+                </div>
+            </div>
+
+            <div class="call-form">
+                <form id="callForm" novalidate>
+                    <div class="form-grid">
+
+                        <div class="form-field">
+                            <label for="firstName">Vorname</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Dein Vorname" autocomplete="given-name" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="lastName">Nachname</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Dein Nachname" autocomplete="family-name">
+                        </div>
+
+                        <div class="form-field full">
+                            <label for="phone">Telefonnummer</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+49 000 000 0000" autocomplete="tel">
+                        </div>
+
+                        <div class="form-field full">
+                            <label for="message">Was bringt dich zum Breathwork?</label>
+                            <textarea id="message" name="message" rows="3" placeholder="Teile, was sich richtig anfühlt..."></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="form-footer">
+                        <p class="form-note">
+                            Your details are safe with us.<br>
+                            We'll be in touch within 24 hours.
+                        </p>
+                        <button type="submit" class="btn-submit">
+                            Reserve My Call
+                            <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+                                <path d="M1 5H13M9 1L13 5L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="form-success" id="formSuccess">
+                    <div class="success-ring">
+                        <span class="success-check">✦</span>
+                    </div>
+                    <h3>You're booked in.</h3>
+                    <p>Vielen Dank. Wir werden Sie schnellst möglich kontaktieren und ein Gespräch vereinbaren.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ─── FOOTER ─── -->
+    <footer>
+        <img src="brand_assets/DA Solo Logo-08 edit.png" alt="Daniel Alan">
+        <p>© 2026 Daniel Alan. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Sticky header shadow on scroll
+        const siteHeader = document.getElementById('siteHeader');
+        window.addEventListener('scroll', () => {
+            siteHeader.classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+
+        const videoWrap = document.getElementById('videoWrap');
+        videoWrap.addEventListener('click', () => {
+            // Replace with your Vimeo / YouTube / Wistia embed
+            // e.g. videoWrap.innerHTML = '<iframe src="YOUR_URL" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+        });
+        videoWrap.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') videoWrap.click();
+        });
+
+        const form = document.getElementById('callForm');
+        const successEl = document.getElementById('formSuccess');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value.trim();
+            if (!firstName) return;
+
+            // Replace with your form submission (Mailchimp, ConvertKit, etc.)
+            form.style.cssText = 'opacity:0; transition:opacity 0.4s ease';
+            setTimeout(() => {
+                form.style.display = 'none';
+                successEl.style.cssText = 'display:block; opacity:0; transition:opacity 0.6s ease';
+                requestAnimationFrame(() => { successEl.style.opacity = '1'; });
+            }, 400);
+        });
+    </script>
+</body>
+</html>
