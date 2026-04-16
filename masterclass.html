@@ -371,11 +371,10 @@
         }
 
         .form-intro {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
             margin-bottom: 32px;
-            align-items: start;
         }
 
         .form-tag {
@@ -412,12 +411,75 @@
         }
 
         .form-intro-right p {
-            font-size: 14.5px;
+            font-size: 14px;
             font-weight: 300;
             line-height: 1.9;
             color: var(--text-body);
-            margin-bottom: 32px;
-            padding-top: 15px;
+            margin-bottom: 18px;
+        }
+
+        .form-hook {
+            font-size: 15px !important;
+            color: var(--charcoal) !important;
+            font-weight: 400 !important;
+        }
+
+        .form-hook em {
+            font-style: italic;
+            color: var(--smoke);
+        }
+
+        .form-callout {
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.04em;
+            color: var(--charcoal) !important;
+            margin-top: 8px;
+            margin-bottom: 12px !important;
+        }
+
+        .form-bullets {
+            list-style: none;
+            margin-bottom: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        .form-bullets li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: 13.5px;
+            font-weight: 300;
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        .form-bullets li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 18px;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.6;
+            margin-top: 10px;
+        }
+
+        .form-closing {
+            font-style: italic;
+            color: var(--smoke) !important;
+            margin-top: 8px;
+        }
+
+        .form-scarcity {
+            font-size: 12px !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--earth) !important;
+            margin-top: 4px;
+            margin-bottom: 0 !important;
         }
 
         .call-points {
@@ -650,7 +712,6 @@
             .nav-logo { height: 32px; }
             .main { padding: 44px 20px 0; }
             .form-band { padding: 60px 20px 72px; }
-            .form-intro { grid-template-columns: 1fr; gap: 36px; }
             .form-grid { grid-template-columns: 1fr; }
             .form-field.full { grid-column: 1; }
             .call-form { padding: 36px 24px; }
@@ -734,7 +795,17 @@
                     <h2>Bereit für<br><em>mehr?</em></h2>
                 </div>
                 <div class="form-intro-right">
-                    <p>In einem kostenlosen 1:1-Gespräch schauen wir uns gemeinsam an, wo du gerade stehst, was dir noch fehlt und ob die Breathwork Ausbildung der richtige nächste Schritt für dich ist.</p>
+                    <p class="form-hook">Du hast die Masterclass gesehen – und irgendwas hat sich angefühlt wie: <em>„Da ist was dran."</em></p>
+                    <p>Vielleicht fragst du dich gerade ob Breathwork wirklich zu dir passt. Ob du die richtige Person dafür bist. Oder ob du dir das neben allem anderen überhaupt leisten kannst – zeitlich, finanziell, mental.</p>
+                    <p>Diese Fragen sind berechtigt. Und genau deswegen gibt es dieses Gespräch.</p>
+                    <p class="form-callout">In einem kostenlosen 1:1-Call schauen wir uns gemeinsam an:</p>
+                    <ul class="form-bullets">
+                        <li>Wo du gerade als Coach stehst und was dich aufhält</li>
+                        <li>Ob Breathwork der fehlende Baustein in deiner Arbeit sein könnte</li>
+                        <li>Welche konkreten nächsten Schritte für dich Sinn machen</li>
+                    </ul>
+                    <p class="form-closing">Kein Skript. Kein Druck. Wenn es nicht passt, sagst du das – und wir auch. Du gehst in jedem Fall mit mehr Klarheit raus als du reingekommen bist.</p>
+                    <p class="form-scarcity">Die Plätze für diese Gespräche sind begrenzt.</p>
                 </div>
             </div>
 
