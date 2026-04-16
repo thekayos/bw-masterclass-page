@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breathwork Masterclass — Jetzt anmelden</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bone:        #E8E2D2;
+            --bone-2:      #F2EDE4;
+            --earth:       #C6B398;
+            --fog:         #BCB4A4;
+            --smoke:       #877F6D;
+            --dust:        #B9B2A9;
+            --moss:        #A8A178;
+            --ochre:       #C2923F;
+            --ember:       #B45C43;
+            --wood:        #684735;
+            --charcoal:    #3A302E;
+
+            --bg:          var(--bone);
+            --bg-2:        var(--bone-2);
+            --text-dark:   var(--charcoal);
+            --text-body:   #4A3C35;
+            --text-muted:  var(--smoke);
+            --text-light:  var(--bone);
+            --text-dim:    rgba(232, 226, 210, 0.55);
+            --text-dimmer: rgba(232, 226, 210, 0.32);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-2);
+            color: var(--text-dark);
+            font-family: 'Raleway', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Grain */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9000;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 180px 180px;
+        }
+
+        /* ─── HEADER ─── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--earth);
+            border-bottom: 1px solid rgba(58, 48, 46, 0.1);
+            transition: box-shadow 0.35s ease;
+            opacity: 0;
+            animation: fadeDown 0.8s ease 0.1s forwards;
+        }
+
+        .site-header.scrolled {
+            box-shadow: 0 2px 28px rgba(58, 48, 46, 0.1);
+        }
+
+        .nav-inner {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 12px 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            height: 38px;
+            display: block;
+            filter: brightness(0) opacity(0.72);
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            background: var(--bg-2);
+            padding: 88px 28px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.3s forwards;
+        }
+
+        /* Subtle breathing rings behind hero */
+        .hero-rings {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .hero-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(198, 179, 152, 0.18);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        .hero-ring-1 { width: 280px; height: 280px; animation-delay: 0s; }
+        .hero-ring-2 { width: 480px; height: 480px; animation-delay: 0.5s; opacity: 0.6; }
+        .hero-ring-3 { width: 700px; height: 700px; animation-delay: 1s;   opacity: 0.3; }
+        .hero-ring-4 { width: 960px; height: 960px; animation-delay: 1.5s; opacity: 0.12; }
+
+        @keyframes breathe {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50%       { transform: translate(-50%, -50%) scale(1.06); }
+        }
+
+        .eyebrow {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.36em;
+            text-transform: uppercase;
+            color: var(--smoke);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .eyebrow::before,
+        .eyebrow::after {
+            content: '';
+            width: 36px;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.6;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(40px, 6vw, 80px);
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--charcoal);
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--smoke);
+        }
+
+        .hero-sub {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.85;
+            color: var(--text-muted);
+            max-width: 480px;
+            margin: 0 auto 56px;
+            letter-spacing: 0.025em;
+        }
+
+        /* ─── FORM CARD ─── */
+        .form-card-wrap {
+            background: var(--bg-2);
+            padding: 0 28px 96px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-card {
+            background: var(--bg);
+            border: 1px solid rgba(58, 48, 46, 0.1);
+            padding: 56px 60px;
+            width: 100%;
+            max-width: 580px;
+            position: relative;
+            top: -2px;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.55s forwards;
+        }
+
+        .form-card-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--earth);
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-card-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.3;
+        }
+
+        .form-field {
+            position: relative;
+            margin-bottom: 36px;
+        }
+
+        .form-field label {
+            display: block;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--smoke);
+            margin-bottom: 14px;
+        }
+
+        .form-field input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(58, 48, 46, 0.18);
+            color: var(--text-dark);
+            font-family: 'Raleway', sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            padding: 0 0 13px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .form-field input::placeholder {
+            color: rgba(58, 48, 46, 0.25);
+        }
+
+        .form-field input:focus {
+            border-bottom-color: transparent;
+        }
+
+        /* Animated underline */
+        .form-field::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--charcoal);
+            transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-field:focus-within::after { width: 100%; }
+
+        .opt-label {
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: var(--fog);
+            font-weight: 400;
+            margin-left: 6px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background: var(--charcoal);
+            color: var(--bone);
+            border: none;
+            padding: 18px 40px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.35s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--wood);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit svg { transition: transform 0.3s ease; }
+        .btn-submit:hover svg { transform: translateX(5px); }
+
+        .form-fine {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--fog);
+            letter-spacing: 0.04em;
+            line-height: 1.7;
+        }
+
+        /* Success */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 40px 0 12px;
+        }
+
+        .success-glyph {
+            font-size: 28px;
+            color: var(--earth);
+            margin-bottom: 22px;
+            display: block;
+        }
+
+        .form-success h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--charcoal);
+            margin-bottom: 14px;
+        }
+
+        .form-success p {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.85;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        /* ─── ABOUT SECTION ─── */
+        .about-band {
+            background: var(--bg);
+            border-top: 1px solid rgba(58, 48, 46, 0.08);
+        }
+
+        .about-inner {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 96px 28px 104px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            gap: 88px;
+            align-items: start;
+        }
+
+        .about-left {
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.2s both;
+        }
+
+        .about-right {
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.4s both;
+        }
+
+        /* Only run when section is visible */
+        .about-band.visible .about-left,
+        .about-band.visible .about-right {
+            animation-play-state: running;
+        }
+
+        .section-tag {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--earth);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-tag::after {
+            content: '';
+            width: 36px;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.45;
+        }
+
+        .about-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 5vw, 60px);
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--charcoal);
+            margin-bottom: 32px;
+        }
+
+        .about-name em {
+            font-style: italic;
+            color: var(--smoke);
+            display: block;
+        }
+
+        .about-rule {
+            width: 44px;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.4;
+            margin-bottom: 28px;
+        }
+
+        .credentials {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--fog);
+            line-height: 2.6;
+        }
+
+        .pull-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.65;
+            color: var(--smoke);
+            border-left: 2px solid rgba(198, 179, 152, 0.4);
+            padding-left: 24px;
+            margin-bottom: 36px;
+        }
+
+        .about-right p {
+            font-size: 14.5px;
+            font-weight: 300;
+            line-height: 2.0;
+            color: var(--text-body);
+            margin-bottom: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        /* ─── BREATHWORK SECTION ─── */
+        .breathwork-band {
+            background: var(--charcoal);
+            padding: 96px 28px;
+        }
+
+        .breathwork-inner {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .breathwork-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: rgba(198, 179, 152, 0.06);
+            margin-top: 64px;
+        }
+
+        .breathwork-head {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: end;
+        }
+
+        .breathwork-head h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(30px, 4vw, 48px);
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--bone);
+        }
+
+        .breathwork-head h2 em {
+            font-style: italic;
+            color: var(--earth);
+        }
+
+        .breathwork-head p {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: rgba(232, 226, 210, 0.5);
+            padding-bottom: 4px;
+        }
+
+        .bw-card {
+            background: var(--charcoal);
+            padding: 48px 40px;
+            transition: background 0.3s;
+        }
+
+        .bw-card:hover {
+            background: #433830;
+        }
+
+        .bw-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 400;
+            color: rgba(198, 179, 152, 0.1);
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .bw-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--bone-2);
+            margin-bottom: 14px;
+            line-height: 1.3;
+        }
+
+        .bw-card h3 em {
+            font-style: italic;
+            color: var(--earth);
+        }
+
+        .bw-card p {
+            font-size: 13.5px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: rgba(232, 226, 210, 0.45);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: #2A2220;
+            padding: 36px 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(198, 179, 152, 0.06);
+        }
+
+        footer img {
+            height: 34px;
+            opacity: 0.45;
+        }
+
+        footer p {
+            font-size: 11px;
+            font-weight: 300;
+            color: rgba(232, 226, 210, 0.2);
+            letter-spacing: 0.08em;
+        }
+
+        /* ─── KEYFRAMES ─── */
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── SCROLL REVEALS ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+
+        .reveal.in { opacity: 1; transform: none; }
+        .reveal-d1 { transition-delay: 0.12s; }
+        .reveal-d2 { transition-delay: 0.24s; }
+        .reveal-d3 { transition-delay: 0.36s; }
+        .reveal-d4 { transition-delay: 0.48s; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 800px) {
+            .nav-inner { padding: 12px 20px; }
+            .hero { padding: 64px 20px 0; }
+            .form-card { padding: 40px 28px; }
+            .form-card-wrap { padding: 0 20px 72px; }
+            .about-grid { grid-template-columns: 1fr; gap: 48px; }
+            .about-inner { padding: 72px 20px 80px; }
+            .breathwork-band { padding: 72px 20px; }
+            .breathwork-head { grid-template-columns: 1fr; gap: 28px; }
+            .breathwork-grid { grid-template-columns: 1fr; }
+
+            footer { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── HEADER ─── -->
+    <header class="site-header" id="siteHeader">
+        <nav class="nav-inner">
+            <img src="brand_assets/DA Solo Logo-08 edit.png" alt="Daniel Alan" class="nav-logo">
+        </nav>
+    </header>
+
+    <!-- ─── HERO + FORM ─── -->
+    <section class="hero">
+        <!-- Decorative rings -->
+        <div class="hero-rings" aria-hidden="true">
+            <div class="hero-ring hero-ring-1"></div>
+            <div class="hero-ring hero-ring-2"></div>
+            <div class="hero-ring hero-ring-3"></div>
+            <div class="hero-ring hero-ring-4"></div>
+        </div>
+
+        <p class="eyebrow">Breathwork Masterclass</p>
+        <h1>Was dein Atem<br><em>wirklich kann.</em></h1>
+        <p class="hero-sub">Ein kostenloser Masterclass mit Daniel Alan — lerne die Kraft des bewussten Atmens kennen und wie er dein Leben und das deiner Klienten verändern kann.</p>
+    </section>
+
+    <!-- Form card -->
+    <div class="form-card-wrap">
+        <div class="form-card">
+            <div class="form-card-label">Jetzt anmelden</div>
+
+            <form id="signupForm" novalidate>
+                <div class="form-field">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Dein vollständiger Name" autocomplete="name" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="email">E-Mail</label>
+                    <input type="email" id="email" name="email" placeholder="deine@email.de" autocomplete="email" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="phone">Telefon <span class="opt-label">(optional)</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="+49 000 000 0000" autocomplete="tel">
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    Kostenlosen Zugang sichern
+                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+                        <path d="M1 5H13M9 1L13 5L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <p class="form-fine">Deine Daten sind sicher. Kein Spam, versprochen.</p>
+            </form>
+
+            <div class="form-success" id="formSuccess">
+                <span class="success-glyph">✦</span>
+                <h3>Du bist dabei.</h3>
+                <p>Wir haben deine Anmeldung erhalten und melden uns in Kürze bei dir mit dem Link zum Masterclass.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── ABOUT DANIEL ─── -->
+    <section class="about-band" id="about">
+        <div class="about-inner">
+            <div class="about-grid">
+                <div class="about-left reveal">
+                    <p class="section-tag">Dein Guide</p>
+                    <div class="about-name">Daniel<br><em>Alan</em></div>
+                    <div class="about-rule"></div>
+                    <div class="credentials">
+                        Breathwork Coach
+                    </div>
+                </div>
+                <div class="about-right reveal reveal-d1">
+                    <p class="pull-quote">„Als Coach wollte ich tiefer gehen. Ich spürte, dass meinen Klienten etwas fehlte — und mir auch. Breathwork hat mir den Zugang zu einer Arbeit gegeben, die wirklich etwas verändert."</p>
+                    <p>Daniel Alan begleitet Menschen durch transformative Atemarbeit — von persönlichen Einzelsitzungen bis hin zu Gruppenzeremonien und internationalen Retreats. Seine Lehrweise ist warm, klar und tief in seiner eigenen Lebensreise verwurzelt.</p>
+                    <p>In diesem kostenlosen Masterclass teilt Daniel das Fundament seiner Arbeit: Was Breathwork wirklich ist, wie es das Nervensystem reguliert, emotionale Blockaden löst und eine tiefere Verbindung zu dir selbst öffnet.</p>
+                    <p>Du wirst verstehen, warum der Atem das kraftvollste Werkzeug ist, das du bereits besitzt — und wie du es bewusst einsetzen kannst.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── WHAT IS BREATHWORK ─── -->
+    <section class="breathwork-band">
+        <div class="breathwork-inner">
+            <div class="breathwork-head reveal">
+                <h2>Was ist<br><em>Breathwork?</em></h2>
+                <p>Breathwork ist eine uralte Praxis, die von der modernen Wissenschaft neu entdeckt wurde. Durch bewusste Atemmuster können wir gespeicherte Anspannung lösen, das Nervensystem regulieren und Zustände tiefer Klarheit erreichen.</p>
+            </div>
+
+            <div class="breathwork-grid">
+                <div class="bw-card reveal">
+                    <div class="bw-num">01</div>
+                    <h3><em>Beruhigung</em> inmitten des Chaos</h3>
+                    <p>Lerne, auf Abruf tiefe Entspannung zu erreichen. Reguliere dein Nervensystem und finde Stille — unabhängig davon, was dich umgibt.</p>
+                </div>
+                <div class="bw-card reveal reveal-d1">
+                    <div class="bw-num">02</div>
+                    <h3><em>Klarheit</em> des Geistes</h3>
+                    <p>Befreie dich von mentalem Nebel und emotionalem Gewicht. Durch den Atem erreichst du eine Qualität des Denkens, die scharf, intuitiv und unbelastet ist.</p>
+                </div>
+                <div class="bw-card reveal reveal-d2">
+                    <div class="bw-num">03</div>
+                    <h3><em>Verbindung</em> zu dir selbst</h3>
+                    <p>Kehre zu dem Teil von dir zurück, der weiß. Reconnecte mit deinem Körper, deiner Intuition und der stillen Intelligenz, die in jeder Sitzung erwacht.</p>
+                </div>
+                <div class="bw-card reveal reveal-d3">
+                    <div class="bw-num">04</div>
+                    <h3>Heilung von <em>Trauma</em></h3>
+                    <p>Trauma lebt im Körper — nicht nur im Kopf. Durch gezielte Atemarbeit können tief verankerte Erfahrungen sanft an die Oberfläche kommen und sich lösen. Breathwork schafft einen sicheren Raum, in dem das Nervensystem lernt, sich neu zu regulieren und alte Wunden endlich loszulassen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+    <footer>
+        <img src="brand_assets/DA Solo Logo-08 edit.png" alt="Daniel Alan">
+        <p>© 2026 Daniel Alan. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        // Sticky header shadow
+        const header = document.getElementById('siteHeader');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+
+        // Scroll reveals
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // Form submission
+        const form = document.getElementById('signupForm');
+        const success = document.getElementById('formSuccess');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const name  = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            if (!name || !email) return;
+
+            // Replace with your actual submission (Mailchimp, ConvertKit, etc.)
+            form.style.cssText = 'opacity:0; transition:opacity 0.4s ease; pointer-events:none';
+            setTimeout(() => {
+                form.style.display = 'none';
+                success.style.cssText = 'display:block; opacity:0; transition:opacity 0.6s ease';
+                requestAnimationFrame(() => { success.style.opacity = '1'; });
+            }, 400);
+        });
+    </script>
+</body>
+</html>
