@@ -748,13 +748,29 @@
         const form = document.getElementById('signupForm');
         const success = document.getElementById('formSuccess');
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async e => {
             e.preventDefault();
             const name  = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             if (!name || !email) return;
 
-            // Replace with your actual submission (Mailchimp, ConvertKit, etc.)
+            // Fade form out while submitting
+            form.style.cssText = 'opacity:0.5; transition:opacity 0.3s ease; pointer-events:none';
+
+            try {
+                await fetch('https://art-of-breath.app.n8n.cloud/webhook-test/fa248376-8c10-44d0-853b-a568132bd7f5', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        phone: document.getElementById('phone').value.trim()
+                    })
+                });
+            } catch (_) {
+                // Submit continues to success regardless of network error
+            }
+
             form.style.cssText = 'opacity:0; transition:opacity 0.4s ease; pointer-events:none';
             setTimeout(() => {
                 form.style.display = 'none';
