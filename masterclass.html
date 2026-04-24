@@ -174,188 +174,23 @@
             animation: fadeSlideUp 0.9s ease 0.75s forwards;
         }
 
-        /* ─── VIDEO PLACEHOLDER ─── */
+        /* ─── VIDEO ─── */
         .video-wrap {
             position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: radial-gradient(ellipse 70% 70% at 50% 46%, #3D2110 0%, #1E120A 45%, #0E0906 100%);
             overflow: hidden;
-            cursor: pointer;
+            box-shadow: 0 24px 80px rgba(23,16,10,0.18), 0 4px 16px rgba(23,16,10,0.12);
             opacity: 0;
             animation: videoReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
-            /* Subtle lift on light page */
-            box-shadow: 0 24px 80px rgba(23,16,10,0.18), 0 4px 16px rgba(23,16,10,0.12);
         }
 
-        /* Warm rays */
-        .video-wrap::before {
-            content: '';
+        .video-wrap iframe {
             position: absolute;
             inset: 0;
-            background: conic-gradient(
-                from 0deg at 50% 50%,
-                transparent 0deg,   rgba(198,179,152,0.025) 3deg,   transparent 6deg,
-                transparent 30deg,  rgba(198,179,152,0.018) 33deg,  transparent 36deg,
-                transparent 60deg,  rgba(198,179,152,0.022) 63deg,  transparent 66deg,
-                transparent 90deg,  rgba(198,179,152,0.015) 93deg,  transparent 96deg,
-                transparent 120deg, rgba(198,179,152,0.028) 123deg, transparent 126deg,
-                transparent 150deg, rgba(198,179,152,0.018) 153deg, transparent 156deg,
-                transparent 180deg, rgba(198,179,152,0.025) 183deg, transparent 186deg,
-                transparent 210deg, rgba(198,179,152,0.02)  213deg, transparent 216deg,
-                transparent 240deg, rgba(198,179,152,0.022) 243deg, transparent 246deg,
-                transparent 270deg, rgba(198,179,152,0.015) 273deg, transparent 276deg,
-                transparent 300deg, rgba(198,179,152,0.025) 303deg, transparent 306deg,
-                transparent 330deg, rgba(198,179,152,0.018) 333deg, transparent 336deg
-            );
-            animation: rayRotate 60s linear infinite;
-        }
-
-        @keyframes rayRotate {
-            from { transform: rotate(0deg); }
-            to   { transform: rotate(360deg); }
-        }
-
-        /* Bottom vignette */
-        .video-wrap::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, transparent 58%, rgba(10,6,4,0.65) 100%);
-            pointer-events: none;
-        }
-
-        /* Breathing rings in video */
-        .vid-rings {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -52%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-        }
-
-        .vid-ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid rgba(198,179,152,0.22);
-            animation: vBreathe 7s ease-in-out infinite;
-        }
-
-        .vid-ring-1 { width: 90px;  height: 90px;  animation-delay: 0s;   }
-        .vid-ring-2 { width: 160px; height: 160px; animation-delay: 0.4s; opacity: 0.65; }
-        .vid-ring-3 { width: 240px; height: 240px; animation-delay: 0.8s; opacity: 0.35; }
-        .vid-ring-4 { width: 336px; height: 336px; animation-delay: 1.2s; opacity: 0.15; }
-
-        @keyframes vBreathe {
-            0%, 100% { transform: scale(1);    }
-            45%       { transform: scale(1.18); }
-            55%       { transform: scale(1.18); }
-        }
-
-        /* Play button */
-        .play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -52%);
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.4s ease;
-        }
-
-        .video-wrap:hover .play-btn {
-            transform: translate(-50%, -52%) scale(1.05);
-        }
-
-        .play-circle {
-            width: 76px;
-            height: 76px;
-            border-radius: 50%;
-            border: 1.5px solid rgba(198,179,152,0.65);
-            background: rgba(198,179,152,0.1);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.4s ease;
-            margin-bottom: 20px;
-        }
-
-        .video-wrap:hover .play-circle {
-            background: rgba(198,179,152,0.22);
-            border-color: var(--earth);
-            box-shadow: 0 0 40px rgba(198,179,152,0.15);
-        }
-
-        .play-triangle {
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 11px 0 11px 18px;
-            border-color: transparent transparent transparent var(--earth);
-            margin-left: 4px;
-        }
-
-        .play-label {
-            font-size: 9px;
-            font-weight: 400;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            color: rgba(198,179,152,0.55);
-        }
-
-        /* Bottom video meta bar */
-        .video-meta {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px 28px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            z-index: 10;
-        }
-
-        .vid-title-block .vid-eyebrow {
-            font-size: 9px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: rgba(198,179,152,0.45);
-            margin-bottom: 4px;
-        }
-
-        .vid-title-block .vid-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            font-style: italic;
-            font-weight: 400;
-            color: var(--fog);
-        }
-
-        .vid-details {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .vid-detail-item {
-            font-size: 9px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(198,179,152,0.38);
-        }
-
-        .vid-sep {
-            width: 1px;
-            height: 12px;
-            background: rgba(198,179,152,0.18);
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
 
@@ -721,7 +556,6 @@
 
         @media (max-width: 500px) {
             .nav-logo { height: 26px; }
-            .vid-details { display: none; }
         }
     </style>
 </head>
@@ -752,34 +586,15 @@
             Lerne von Daniel Alan was Breathwork ist und wie es dein Leben und das deiner Klienten verändern kann.
         </p>
 
-        <!-- ─── VIDEO PLACEHOLDER ─── -->
-        <div class="video-wrap" id="videoWrap" role="button" aria-label="Play masterclass video" tabindex="0">
-
-            <div class="vid-rings">
-                <div class="vid-ring vid-ring-1"></div>
-                <div class="vid-ring vid-ring-2"></div>
-                <div class="vid-ring vid-ring-3"></div>
-                <div class="vid-ring vid-ring-4"></div>
-            </div>
-
-            <div class="play-btn">
-                <div class="play-circle">
-                    <div class="play-triangle"></div>
-                </div>
-                <span class="play-label">Watch Masterclass</span>
-            </div>
-
-            <div class="video-meta">
-                <div class="vid-title-block">
-                    <div class="vid-eyebrow">Daniel Alan</div>
-                    <div class="vid-name">Breathwork Masterclass — Full Session</div>
-                </div>
-                <div class="vid-details">
-                    <span class="vid-detail-item">47 min</span>
-                    <span class="vid-sep"></span>
-                    <span class="vid-detail-item">HD</span>
-                </div>
-            </div>
+        <!-- ─── VIDEO ─── -->
+        <div class="video-wrap">
+            <iframe
+                src="https://www.youtube.com/embed/p6E3YdpkgSQ"
+                title="Breathwork Masterclass — Daniel Alan"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
         </div>
 
     </main>
@@ -869,15 +684,6 @@
         window.addEventListener('scroll', () => {
             siteHeader.classList.toggle('scrolled', window.scrollY > 20);
         }, { passive: true });
-
-        const videoWrap = document.getElementById('videoWrap');
-        videoWrap.addEventListener('click', () => {
-            // Replace with your Vimeo / YouTube / Wistia embed
-            // e.g. videoWrap.innerHTML = '<iframe src="YOUR_URL" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
-        });
-        videoWrap.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') videoWrap.click();
-        });
 
         const form = document.getElementById('callForm');
         const successEl = document.getElementById('formSuccess');
