@@ -11,24 +11,30 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bone:        #E8E2D2;
-            --bone-2:      #F2EDE4;
-            --earth:       #C6B398;
-            --fog:         #BCB4A4;
-            --smoke:       #877F6D;
-            --dust:        #B9B2A9;
-            --ochre:       #C2923F;
-            --ember:       #B45C43;
-            --wood:        #684735;
-            --charcoal:    #3A302E;
+            /* Brand palette from DA Branding Bible */
+            --bone:        #E8E2D2;   /* background base */
+            --bone-2:      #F2EDE4;   /* lighter off-white surface */
+            --earth:       #C6B398;   /* primary accent / sand */
+            --fog:         #BCB4A4;   /* muted mid-tone */
+            --smoke:       #877F6D;   /* body text secondary */
+            --dust:        #B9B2A9;   /* subtle borders */
+            --moss:        #A8A178;   /* soft green-earth */
+            --ochre:       #C2923F;   /* warm gold accent */
+            --ember:       #B45C43;   /* passion accent */
+            --wood:        #684735;   /* dark warm brown */
+            --charcoal:    #3A302E;   /* near-black for text & dark bg */
 
+            /* Semantic aliases */
             --bg:          var(--bone);
             --bg-2:        var(--bone-2);
             --accent:      var(--earth);
+            --accent-2:    var(--ochre);
             --text-dark:   var(--charcoal);
             --text-body:   #4A3C35;
             --text-muted:  var(--smoke);
             --text-light:  var(--bone);
+            --text-dim:    rgba(232, 226, 210, 0.55);
+            --text-dimmer: rgba(232, 226, 210, 0.32);
         }
 
         html { scroll-behavior: smooth; }
@@ -42,6 +48,7 @@
             min-height: 100vh;
         }
 
+        /* Grain overlay */
         body::after {
             content: '';
             position: fixed;
@@ -53,7 +60,7 @@
             background-size: 180px 180px;
         }
 
-        /* ─── NAV ─── */
+        /* ─── SITE HEADER / NAV ─── */
         .site-header {
             position: sticky;
             top: 0;
@@ -70,7 +77,8 @@
         }
 
         .nav-inner {
-            max-width: 100%;
+            max-width: 1060px;
+            margin: 0 auto;
             padding: 12px 36px;
             display: flex;
             align-items: center;
@@ -101,23 +109,19 @@
             border-color: var(--wood);
         }
 
-        /* ─── SPLIT LAYOUT ─── */
-        .split-layout {
-            display: grid;
-            grid-template-columns: 3fr 2fr;
-            min-height: calc(100vh - 62px);
-        }
-
-        /* ─── LEFT — VIDEO ─── */
-        .split-left {
+        /* ─── VIDEO BAND ─── */
+        .video-band {
             background: var(--bg-2);
-            padding: 64px 52px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            border-right: 1px solid rgba(58, 48, 46, 0.07);
         }
 
+        /* ─── MAIN CONTENT ─── */
+        .main {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 68px 28px 120px;
+        }
+
+        /* ─── EPISODE INTRO ─── */
         .episode-label {
             display: flex;
             align-items: center;
@@ -136,7 +140,7 @@
         }
 
         .ep-line {
-            width: 40px;
+            width: 48px;
             height: 1px;
             background: var(--earth);
             opacity: 0.5;
@@ -144,11 +148,11 @@
 
         .episode-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(28px, 3.2vw, 52px);
+            font-size: clamp(34px, 5vw, 60px);
             font-weight: 300;
             line-height: 1.1;
             color: var(--text-dark);
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             opacity: 0;
             animation: fadeSlideUp 0.9s ease 0.6s forwards;
         }
@@ -159,22 +163,24 @@
         }
 
         .episode-desc {
-            font-size: 13.5px;
+            font-size: 14.5px;
             font-weight: 300;
             line-height: 1.9;
             color: var(--text-muted);
-            margin-bottom: 36px;
+            max-width: 560px;
+            margin-bottom: 48px;
             letter-spacing: 0.025em;
             opacity: 0;
             animation: fadeSlideUp 0.9s ease 0.75s forwards;
         }
 
+        /* ─── VIDEO ─── */
         .video-wrap {
             position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
             overflow: hidden;
-            box-shadow: 0 18px 60px rgba(23,16,10,0.16), 0 4px 14px rgba(23,16,10,0.1);
+            box-shadow: 0 24px 80px rgba(23,16,10,0.18), 0 4px 16px rgba(23,16,10,0.12);
             opacity: 0;
             animation: videoReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
         }
@@ -187,13 +193,23 @@
             border: 0;
         }
 
-        /* ─── RIGHT — FORM ─── */
-        .split-right {
+
+        /* ─── FORM SECTION ─── */
+        .form-band {
             background: var(--bg);
-            padding: 64px 40px;
+            padding: 43px 28px 60px;
+        }
+
+        .form-inner {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .form-intro {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            gap: 24px;
+            margin-bottom: 32px;
         }
 
         .form-tag {
@@ -210,61 +226,143 @@
 
         .form-tag::after {
             content: '';
-            width: 36px;
+            width: 40px;
             height: 1px;
             background: var(--earth);
             opacity: 0.35;
         }
 
-        .form-intro {
-            margin-bottom: 36px;
-        }
-
-        .form-intro h2 {
+        .form-intro-left h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(28px, 3vw, 44px);
+            font-size: clamp(32px, 4vw, 50px);
             font-weight: 300;
             line-height: 1.15;
             color: var(--text-dark);
-            margin-bottom: 20px;
         }
 
-        .form-intro h2 em {
+        .form-intro-left h2 em {
             font-style: italic;
             color: var(--smoke);
         }
 
-        .form-intro p {
+        .form-intro-right p {
             font-size: 14px;
             font-weight: 300;
             line-height: 1.9;
             color: var(--text-body);
-            margin-bottom: 14px;
+            margin-bottom: 18px;
         }
 
-        .form-intro p:last-child {
-            margin-bottom: 0;
-            color: var(--text-muted);
+        .form-hook {
+            font-size: 15px !important;
+            color: var(--charcoal) !important;
+            font-weight: 400 !important;
+        }
+
+        .form-hook em {
+            font-style: italic;
+            color: var(--smoke);
+        }
+
+        .form-callout {
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.04em;
+            color: var(--charcoal) !important;
+            margin-top: 8px;
+            margin-bottom: 12px !important;
+        }
+
+        .form-bullets {
+            list-style: none;
+            margin-bottom: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        .form-bullets li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
             font-size: 13.5px;
+            font-weight: 300;
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        .form-bullets li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 18px;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.6;
+            margin-top: 10px;
+        }
+
+        .form-closing {
+            font-style: italic;
+            color: var(--smoke) !important;
+            margin-top: 8px;
+        }
+
+        .form-scarcity {
+            font-size: 12px !important;
+            font-weight: 500 !important;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--earth) !important;
+            margin-top: 4px;
+            margin-bottom: 0 !important;
+        }
+
+        .call-points {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .call-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: 13.5px;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .call-points li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 20px;
+            height: 1px;
+            background: var(--earth);
+            opacity: 0.5;
+            margin-top: 11px;
         }
 
         /* ─── FORM ─── */
         .call-form {
             background: var(--bg-2);
             border: 1px solid rgba(58, 48, 46, 0.1);
-            padding: 32px 36px;
+            padding: 56px;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 0;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 40px;
         }
 
         .form-field {
             position: relative;
-            padding-bottom: 36px;
+            padding-bottom: 40px;
         }
+
+        .form-field.full { grid-column: 1 / -1; }
 
         .form-field label {
             display: block;
@@ -273,7 +371,7 @@
             letter-spacing: 0.28em;
             text-transform: uppercase;
             color: var(--smoke);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .form-field input,
@@ -286,7 +384,7 @@
             font-family: 'Raleway', sans-serif;
             font-size: 15px;
             font-weight: 300;
-            padding: 0 0 12px;
+            padding: 0 0 14px;
             outline: none;
             transition: border-color 0.3s ease;
             letter-spacing: 0.02em;
@@ -294,7 +392,7 @@
 
         .form-field textarea {
             resize: none;
-            min-height: 72px;
+            min-height: 80px;
             line-height: 1.7;
         }
 
@@ -308,10 +406,11 @@
             border-bottom-color: var(--earth);
         }
 
+        /* Animated focus underline */
         .form-field::after {
             content: '';
             position: absolute;
-            bottom: 36px;
+            bottom: 40px;
             left: 0;
             width: 0;
             height: 1px;
@@ -324,8 +423,18 @@
         .form-footer {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            margin-top: 8px;
+            justify-content: space-between;
+            margin-top: 12px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-note {
+            font-size: 11.5px;
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+            line-height: 1.6;
         }
 
         .btn-submit {
@@ -355,11 +464,11 @@
         .btn-submit svg { transition: transform 0.3s ease; }
         .btn-submit:hover svg { transform: translateX(4px); }
 
-        /* Success */
+        /* Success state */
         .form-success {
             display: none;
             text-align: center;
-            padding: 56px 20px;
+            padding: 60px 20px;
         }
 
         .success-ring {
@@ -396,7 +505,7 @@
         /* ─── FOOTER ─── */
         footer {
             background: var(--charcoal);
-            padding: 36px 52px;
+            padding: 40px 52px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -404,8 +513,9 @@
         }
 
         footer img {
-            height: 34px;
+            height: 36px;
             opacity: 0.5;
+            /* white logo stays white on dark footer */
         }
 
         footer p {
@@ -432,33 +542,26 @@
         }
 
         /* ─── RESPONSIVE ─── */
-        @media (max-width: 960px) {
-            .split-layout {
-                grid-template-columns: 1fr;
-            }
-            .split-left {
-                border-right: none;
-                border-bottom: 1px solid rgba(58, 48, 46, 0.07);
-                padding: 52px 32px;
-            }
-            .split-right {
-                padding: 52px 32px;
-            }
-            .call-form { padding: 36px 28px; }
+        @media (max-width: 760px) {
+            .nav-inner { padding: 16px 20px; }
+            .nav-logo { height: 32px; }
+            .main { padding: 44px 20px 0; }
+            .form-band { padding: 60px 20px 72px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-field.full { grid-column: 1; }
+            .call-form { padding: 36px 24px; }
+            .form-footer { flex-direction: column; align-items: flex-start; }
+            footer { flex-direction: column; gap: 18px; text-align: center; }
         }
 
-        @media (max-width: 600px) {
-            .nav-inner { padding: 14px 20px; }
-            .nav-logo { height: 30px; }
-            .split-left, .split-right { padding: 44px 20px; }
-            .call-form { padding: 28px 20px; }
-            .form-footer { justify-content: flex-start; }
-            footer { flex-direction: column; gap: 16px; text-align: center; }
+        @media (max-width: 500px) {
+            .nav-logo { height: 26px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- ─── SITE HEADER ─── -->
     <header class="site-header" id="siteHeader">
         <nav class="nav-inner">
             <img src="brand_assets/DA Solo Logo-08 edit.png" alt="Daniel Alan" class="nav-logo">
@@ -466,41 +569,59 @@
         </nav>
     </header>
 
-    <div class="split-layout">
+    <!-- ─── VIDEO BAND ─── -->
+    <div class="video-band">
+    <main class="main">
 
-        <!-- ─── VIDEO SIDE ─── -->
-        <div class="split-left">
-            <div class="episode-label">
-                <span>Breathwork Masterclass</span>
-                <span class="ep-line"></span>
-            </div>
-
-            <h1 class="episode-title">
-                Was dein Atem<br><em>wirklich kann.</em>
-            </h1>
-
-            <p class="episode-desc">
-                Lerne von Daniel Alan was Breathwork ist und wie es dein Leben und das deiner Klienten verändern kann.
-            </p>
-
-            <div class="video-wrap">
-                <iframe
-                    src="https://www.youtube.com/embed/p6E3YdpkgSQ"
-                    title="Breathwork Masterclass — Daniel Alan"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-                </iframe>
-            </div>
+        <div class="episode-label">
+            <span>Breathwork Masterclass</span>
+            <span class="ep-line"></span>
         </div>
 
-        <!-- ─── FORM SIDE ─── -->
-        <div class="split-right" id="form">
+        <h1 class="episode-title">
+            Was dein Atem<br><em>wirklich kann.</em>
+        </h1>
+
+        <p class="episode-desc">
+            Lerne von Daniel Alan was Breathwork ist und wie es dein Leben und das deiner Klienten verändern kann.
+        </p>
+
+        <!-- ─── VIDEO ─── -->
+        <div class="video-wrap">
+            <iframe
+                src="https://www.youtube.com/embed/p6E3YdpkgSQ"
+                title="Breathwork Masterclass — Daniel Alan"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+    </main>
+
+    </div><!-- end .video-band -->
+
+    <!-- ─── FORM SECTION ─── -->
+    <div class="form-band" id="form">
+        <div class="form-inner">
+
             <div class="form-intro">
-                <div class="form-tag">So gehts weiter</div>
-                <h2>So gehts<br><em>weiter.</em></h2>
-                <p>Breathwork funktioniert. Das hast du gerade selbst gesehen. Die einzige Frage ist: Wie wird es zu <strong style="font-weight:600;">deinem</strong> stärksten Tool? Lass es uns gemeinsam herausfinden.</p>
-                <p>Buch dir jetzt ein kostenloses Gespräch – wir schauen gemeinsam, wie Breathwork konkret in deine Arbeit passt.</p>
+                <div class="form-intro-left">
+                    <h2>Bereit für<br><em>mehr?</em></h2>
+                </div>
+                <div class="form-intro-right">
+                    <p class="form-hook">Du hast die Masterclass gesehen – und irgendwas hat sich angefühlt wie: <em>„Da ist was dran."</em></p>
+                    <p>Vielleicht fragst du dich gerade ob Breathwork wirklich zu dir passt. Ob du die richtige Person dafür bist. Oder ob du dir das neben allem anderen überhaupt leisten kannst – zeitlich, finanziell, mental.</p>
+                    <p>Diese Fragen sind berechtigt. Und genau deswegen gibt es dieses Gespräch.</p>
+                    <p class="form-callout">In einem kostenlosen 1:1-Call schauen wir uns gemeinsam an:</p>
+                    <ul class="form-bullets">
+                        <li>Wo du gerade als Coach stehst und was dich aufhält</li>
+                        <li>Ob Breathwork der fehlende Baustein in deiner Arbeit sein könnte</li>
+                        <li>Welche konkreten nächsten Schritte für dich Sinn machen</li>
+                    </ul>
+                    <p class="form-closing">Kein Skript. Kein Druck. Wenn es nicht passt, sagst du das – und wir auch. Du gehst in jedem Fall mit mehr Klarheit raus als du reingekommen bist.</p>
+                    <p class="form-scarcity">Die Plätze für diese Gespräche sind begrenzt.</p>
+                </div>
             </div>
 
             <div class="call-form">
@@ -517,12 +638,12 @@
                             <input type="text" id="lastName" name="lastName" placeholder="Dein Nachname" autocomplete="family-name">
                         </div>
 
-                        <div class="form-field">
+                        <div class="form-field full">
                             <label for="phone">Telefonnummer</label>
                             <input type="tel" id="phone" name="phone" placeholder="+49 000 000 0000" autocomplete="tel">
                         </div>
 
-                        <div class="form-field">
+                        <div class="form-field full">
                             <label for="message">Was bringt dich zum Breathwork?</label>
                             <textarea id="message" name="message" rows="3" placeholder="Teile, was sich richtig anfühlt..."></textarea>
                         </div>
@@ -547,16 +668,18 @@
                     <p>Vielen Dank. Wir werden Sie schnellst möglich kontaktieren und ein Gespräch vereinbaren.</p>
                 </div>
             </div>
+
         </div>
+    </div>
 
-    </div><!-- end .split-layout -->
-
+    <!-- ─── FOOTER ─── -->
     <footer>
         <img src="brand_assets/DA Solo Logo-08 edit.png" alt="Daniel Alan">
         <p>© 2026 Daniel Alan. All rights reserved.</p>
     </footer>
 
     <script>
+        // Sticky header shadow on scroll
         const siteHeader = document.getElementById('siteHeader');
         window.addEventListener('scroll', () => {
             siteHeader.classList.toggle('scrolled', window.scrollY > 20);
@@ -570,6 +693,7 @@
             const firstName = document.getElementById('firstName').value.trim();
             if (!firstName) return;
 
+            // Replace with your form submission (Mailchimp, ConvertKit, etc.)
             form.style.cssText = 'opacity:0; transition:opacity 0.4s ease';
             setTimeout(() => {
                 form.style.display = 'none';
