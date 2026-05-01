@@ -34,12 +34,19 @@
         html { scroll-behavior: smooth; }
 
         body {
-            background: var(--bg);
+            /* gradient splits exactly where the 3fr/2fr columns meet at max-width 1800px:
+               left col = 60% of 1800 = 1080px, midpoint offset = 1080 - 900 = +180px */
+            background: linear-gradient(to right, var(--bg-2) calc(50% + 180px), var(--bg) calc(50% + 180px));
             color: var(--text-dark);
             font-family: 'Raleway', sans-serif;
             font-weight: 300;
             overflow-x: hidden;
             min-height: 100vh;
+        }
+
+        .page-wrap {
+            max-width: 1800px;
+            margin: 0 auto;
         }
 
         body::after {
@@ -58,6 +65,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            width: 100%;
             background: var(--earth);
             border-bottom: 1px solid rgba(58, 48, 46, 0.1);
             transition: box-shadow 0.35s ease;
@@ -70,7 +78,8 @@
         }
 
         .nav-inner {
-            max-width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
             padding: 12px 36px;
             display: flex;
             align-items: center;
@@ -462,9 +471,10 @@
     <header class="site-header" id="siteHeader">
         <nav class="nav-inner">
             <img src="brand_assets/DA Solo Logo-08 edit.png" alt="Daniel Alan" class="nav-logo">
-            <a href="#form" class="nav-cta">Book a Call</a>
+            <a href="#form" class="nav-cta">Mehr</a>
         </nav>
     </header>
+    <div class="page-wrap">
 
     <div class="split-layout">
 
@@ -555,6 +565,7 @@
         <img src="brand_assets/DA Solo Logo-08 edit.png" alt="Daniel Alan">
         <p>© 2026 Daniel Alan. All rights reserved.</p>
     </footer>
+    </div><!-- end .page-wrap -->
 
     <script>
         const siteHeader = document.getElementById('siteHeader');
@@ -565,10 +576,26 @@
         const form = document.getElementById('callForm');
         const successEl = document.getElementById('formSuccess');
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async e => {
             e.preventDefault();
             const firstName = document.getElementById('firstName').value.trim();
             if (!firstName) return;
+
+            const btn = form.querySelector('.btn-submit');
+            btn.disabled = true;
+
+            try {
+                await fetch('https://art-of-breath.app.n8n.cloud/webhook/lead-booked', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        firstName,
+                        lastName:  document.getElementById('lastName').value.trim(),
+                        phone:     document.getElementById('phone').value.trim(),
+                        message:   document.getElementById('message').value.trim()
+                    })
+                });
+            } catch (_) {}
 
             form.style.cssText = 'opacity:0; transition:opacity 0.4s ease';
             setTimeout(() => {
